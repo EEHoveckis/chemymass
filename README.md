@@ -23,6 +23,8 @@ var precision = 5;
 console.log(chemyMass(input, precision));
 ```
 
+Note: `Precision` is optional parameter which defaults to 5 if not passed to function.
+
 ## 👨‍⚖️ License
 [![Creative Commons Attribution 4.0 International License](https://i.creativecommons.org/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/)
 
