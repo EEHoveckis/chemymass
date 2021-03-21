@@ -1,5 +1,8 @@
 <h1 align="center">ChemyMass</h1>
 <p align="center">Simple Molar Mass Calculator</p>
+<p align="center">
+<a href="https://nodei.co/npm/chemymass/"><img src="https://nodei.co/npm/chemymass.png"></a>
+</p>
 
 ## 📝 Description
 ChemyMass - Simple molar mass calculator, calculates molar mass of chemical.
