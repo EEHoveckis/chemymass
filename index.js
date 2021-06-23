@@ -21,8 +21,7 @@ function calculateWeight(formula) {
 	}
 	i = 0;
 	while (formula.charAt(i) != "") {
-		if ((uppercase + lowercase + number + "()").indexOf(formula.charAt(i)) == -1)
-			i++;
+		if ((uppercase + lowercase + number + "()").indexOf(formula.charAt(i)) == -1) i++;
 		while (formula.charAt(i) == "(") {
 			level++;
 			i++;
@@ -38,28 +37,28 @@ function calculateWeight(formula) {
 			level--;
 		} else if (uppercase.indexOf(formula.charAt(i)) != -1) {
 			name = formula.charAt(i);
-			while (lowercase.indexOf(formula.charAt(i + 1)) != -1 && formula.charAt(i + 1) != "")
-				name += formula.charAt(++i);
+			while (lowercase.indexOf(formula.charAt(i + 1)) != -1 && formula.charAt(i + 1) != "") name += formula.charAt(++i);
 			mass = atom[name];
 		}
 		var amount = "";
-		while (number.indexOf(formula.charAt(i + 1)) != -1 && formula.charAt(i + 1) != "")
-			amount += formula.charAt(++i);
+		while (number.indexOf(formula.charAt(i + 1)) != -1 && formula.charAt(i + 1) != "") amount += formula.charAt(++i);
 		if (amount == "") amount = "1";
 		total[level] += mass * parseFloat(amount);
 		if (name == "") {
 			for (ele in elmass[level + 1]) {
 				totalnumber = parseFloat(elmass[level + 1][ele]) * amount
-				if (elmass[level][ele] == null)
+				if (elmass[level][ele] == null) {
 					elmass[level][ele] = totalnumber;
-				else
+				} else {
 					elmass[level][ele] = totalnumber + parseFloat(elmass[level][ele]);
+				}
 			}
 		} else {
-			if (elmass[level][name] == null)
+			if (elmass[level][name] == null) {
 				elmass[level][name] = amount;
-			else
+			} else {
 				elmass[level][name] = parseFloat(elmass[level][name]) + parseFloat(amount);
+			}
 		}
 		i++;
 	}
