@@ -19,14 +19,21 @@ To require ChemyMass in your program do:
 const chemyMass = require('ChemyMass');
 ```
 
-To pass chemical formula to calculator and output result to console, do:
+Long Mode - Get molar mass and element percentages:
 ```
 var formula = 'H2SO4';
-var precision = 5;
-console.log(chemyMass(input, precision));
+var precision = 3;
+console.log(chemyMass(formula, precision));
 ```
 
-Note: `Precision` is optional parameter which defaults to 5 if not passed to function.
+Short Mode - Get only number:
+```
+var formula = 'H2SO4';
+var precision = 7;
+console.log(chemyMass.short(formula, precision));
+```
+
+Note: `Precision` is optional parameter which defaults to 3 if not passed to function.
 
 ## 👨‍⚖️ License
 [![Creative Commons Attribution 4.0 International License](https://i.creativecommons.org/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/)

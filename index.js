@@ -1,27 +1,10 @@
 var atom = require("./atom.js");
 
-module.exports = function(formula, precision) {
-	if (!formula) return console.log("Missing Formula");
-
+function calculateWeight(formula) {
 	const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	const lowercase = "abcdefghijklmnopqrstuvwxyz";
 	const number = "0123456789.";
 
-	function rounded(number, init_precision) {
-
-		var rounded = Math.round(number * Math.pow(10, init_precision)) / Math.pow(10, init_precision);
-		var numStr = rounded + "";
-		var precis = (numStr.substring(numStr.indexOf(".") + 1, numStr.length)).length;
-		if (numStr.indexOf(".") != -1) {
-			var extrazeros = (init_precision - precis < 0) ? 0 : init_precision - precis;
-			for (var i = 0; i < extrazeros; i++) {
-				rounded = rounded + "0";
-			}
-		}
-		return rounded;
-	}
-
-	if (precision == undefined) precision = 5;
 	total = new Array();
 	level = 0;
 	total[0] = 0;
@@ -80,12 +63,41 @@ module.exports = function(formula, precision) {
 		}
 		i++;
 	}
+}
+
+function rounded(number, init_precision) {
+	var rounded = Math.round(number * Math.pow(10, init_precision)) / Math.pow(10, init_precision);
+	var numStr = rounded + "";
+	var precis = (numStr.substring(numStr.indexOf(".") + 1, numStr.length)).length;
+	if (numStr.indexOf(".") != -1) {
+		var extrazeros = (init_precision - precis < 0) ? 0 : init_precision - precis;
+		for (var i = 0; i < extrazeros; i++) {
+			rounded = rounded + "0";
+		}
+	}
+	return rounded;
+}
+
+module.exports = function(formula, precision) {
+	if (!formula) return "Missing Formula";
+	if (precision == undefined) precision = 3;
+	var weight = calculateWeight(formula);
+
 	weight = rounded(total[0], precision);
-	output = `${formula}:\n`;
+	var output = `${formula}:\n`;
 	for (ele in elmass[0]) {
 		eltotal = eval(elmass[0][ele] * atom[ele]);
 		output += `${elmass[0][ele]} ${ele} * ${atom[ele]} = ${rounded(eltotal, precision)} (${rounded(eltotal / total[0] * 100, precision)}% of mass)\n`;
 	}
-	output += `Total:${weight} g/mol\n`;
+	output += `Total: ${weight} g/mol`;
 	return output;
+};
+
+module.exports.short = function(formula, precision) {
+	if (!formula) return "Missing Formula";
+	if (precision == undefined) precision = 3;
+	var weight = calculateWeight(formula);
+
+	weight = rounded(total[0], precision);
+	return `${weight} g/mol`;
 };

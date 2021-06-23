@@ -1,6 +1,6 @@
 {
   "name": "chemymass",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Chemical Molar Mass Calculator",
   "main": "index.js",
   "scripts": {
