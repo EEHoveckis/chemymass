@@ -1,6 +1,7 @@
 var atom = require("./atom.js");
 
 function calculateWeight(formula) {
+	formula = formula.replace(/ /g, "");
 	const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	const lowercase = "abcdefghijklmnopqrstuvwxyz";
 	const number = "0123456789.";
