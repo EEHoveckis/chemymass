@@ -1,10 +1,11 @@
-var atom = require("./atom.js");
+const atom = require("./modules/atom.js");
+const replacer = require("./modules/replacer.js");
 
 function calculateWeight(formula) {
-	formula = formula.replace(/ /g, "");
 	const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	const lowercase = "abcdefghijklmnopqrstuvwxyz";
 	const number = "0123456789.";
+	formula = replacer(formula);
 
 	total = new Array();
 	level = 0;
@@ -65,12 +66,12 @@ function calculateWeight(formula) {
 	}
 }
 
-function rounded(number, init_precision) {
-	var rounded = Math.round(number * Math.pow(10, init_precision)) / Math.pow(10, init_precision);
+function rounded(number, precision) {
+	var rounded = Math.round(number * Math.pow(10, precision)) / Math.pow(10, precision);
 	var numStr = rounded + "";
 	var precis = (numStr.substring(numStr.indexOf(".") + 1, numStr.length)).length;
 	if (numStr.indexOf(".") != -1) {
-		var extrazeros = (init_precision - precis < 0) ? 0 : init_precision - precis;
+		var extrazeros = (precision - precis < 0) ? 0 : precision - precis;
 		for (var i = 0; i < extrazeros; i++) {
 			rounded = rounded + "0";
 		}
@@ -79,7 +80,7 @@ function rounded(number, init_precision) {
 }
 
 module.exports = function(formula, precision) {
-	if (!formula) return "Missing Formula";
+	if (!formula) return "Missing Formula!\nPlease supply formula to calculate molar mass!";
 	if (precision == undefined) precision = 3;
 	var weight = calculateWeight(formula);
 
@@ -89,15 +90,23 @@ module.exports = function(formula, precision) {
 		eltotal = eval(elmass[0][ele] * atom[ele]);
 		output += `${elmass[0][ele]} ${ele} * ${atom[ele]} = ${rounded(eltotal, precision)} (${rounded(eltotal / total[0] * 100, precision)}% of mass)\n`;
 	}
-	output += `Total: ${weight} g/mol`;
+	if (isNaN(weight)) {
+		output += "Unknown element detected!\nMolar mass couldn't be calculated.";
+	} else {
+		output += `Total: ${weight} g/mol`;
+	}
 	return output;
 };
 
 module.exports.short = function(formula, precision) {
-	if (!formula) return "Missing Formula";
+	if (!formula) return "Missing Formula!\nPlease supply formula to calculate molar mass!";
 	if (precision == undefined) precision = 3;
 	var weight = calculateWeight(formula);
 
 	weight = rounded(total[0], precision);
-	return `${weight} g/mol`;
+	if (isNaN(weight)) {
+		return `Unknown element detected!\nMolar mass couldn't be calculated.`;
+	} else {
+		return `${weight} g/mol`;
+	}
 };
