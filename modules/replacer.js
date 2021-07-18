@@ -1,5 +1,6 @@
 module.exports = function(formula) {
 	formula = formula.replace(/ /g, "");
+	formula = formula.replace(/-/g, "");
 	formula = formula.replace(/₀/g, "0");
 	formula = formula.replace(/₁/g, "1");
 	formula = formula.replace(/₂/g, "2");

@@ -1,6 +1,6 @@
 {
   "name": "chemymass",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Chemical Molar Mass Calculator",
   "main": "index.js",
   "scripts": {
@@ -11,12 +11,21 @@
     "url": "git+https://github.com/EEHoveckis/ChemyMass.git"
   },
   "keywords": [
-    "chemistry"
+    "chemistry",
+    "chemicals",
+    "molar mass",
+    "molecular weight",
+    "chem",
+    "formula",
+    "weight"
   ],
   "author": "EEHoveckis",
   "license": "CC-BY-4.0",
   "bugs": {
     "url": "https://github.com/EEHoveckis/ChemyMass/issues"
   },
-  "homepage": "https://github.com/EEHoveckis/ChemyMass#readme"
+  "homepage": "https://github.com/EEHoveckis/ChemyMass#readme",
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  }
 }
