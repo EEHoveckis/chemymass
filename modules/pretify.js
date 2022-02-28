@@ -1,18 +1,18 @@
-module.exports = function(printFormula) {
-  printFormula = printFormula.replace(/ /g, "");
-  printFormula = printFormula.replace(/×/g, " · ");
-  printFormula = printFormula.replace(/\*/g, " · ");
-  printFormula = printFormula.replace(/-/g, "");
-  printFormula = printFormula.replace(/0/g, "₀");
-  printFormula = printFormula.replace(/1/g, "₁");
-  printFormula = printFormula.replace(/2/g, "₂");
-  printFormula = printFormula.replace(/3/g, "₃");
-  printFormula = printFormula.replace(/4/g, "₄");
-  printFormula = printFormula.replace(/5/g, "₅");
-  printFormula = printFormula.replace(/6/g, "₆");
-  printFormula = printFormula.replace(/7/g, "₇");
-  printFormula = printFormula.replace(/8/g, "₈");
-  printFormula = printFormula.replace(/9/g, "₉");
+module.exports = function(formula) {
+  formula = formula.replace(/ /g, "");
+  formula = formula.replace(/×/g, " · ");
+  formula = formula.replace(/\*/g, " · ");
+  formula = formula.replace(/-/g, "");
+  formula = formula.replace(/0/g, "₀");
+  formula = formula.replace(/1/g, "₁");
+  formula = formula.replace(/2/g, "₂");
+  formula = formula.replace(/3/g, "₃");
+  formula = formula.replace(/4/g, "₄");
+  formula = formula.replace(/5/g, "₅");
+  formula = formula.replace(/6/g, "₆");
+  formula = formula.replace(/7/g, "₇");
+  formula = formula.replace(/8/g, "₈");
+  formula = formula.replace(/9/g, "₉");
 
-  return printFormula;
+  return formula;
 };

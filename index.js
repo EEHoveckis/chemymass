@@ -1,4 +1,6 @@
-//Require neccesary files and modules.
+// Require / Import neccesary files and modules.
+const fetch = require("node-fetch");
+
 const atom = require("./modules/atom.js");
 const pretify = require("./modules/pretify.js");
 const replacer = require("./modules/replacer.js");
@@ -14,8 +16,7 @@ let prettyFormula;
 function calculateWeight(formula) {
 
   // Copy the original and replace all unicode symbols for calculation.
-  let printFormula = formula;
-  prettyFormula = pretify(printFormula);
+  prettyFormula = pretify(formula);
   formula = replacer(formula);
 
   // Test if formula is crystal hydrate.
@@ -102,7 +103,7 @@ function rounded(number, precision) {
   return rounded;
 }
 
-// Standard Long Mode - Get molar mass and element percentages
+// Standard Long Mode - Get molar mass and element percentages.
 module.exports = function(formula, precision) {
   if (!formula) throw "Missing formula!\nPlease supply formula!\nMolar mass can't be calculated.";
   if (!precision) precision = 3;
@@ -122,7 +123,7 @@ module.exports = function(formula, precision) {
   return output;
 };
 
-// Standard Short Mode - Get only number
+// Standard Short Mode - Get only molar mass.
 module.exports.short = function(formula, precision) {
   if (!formula) throw "Missing formula!\nPlease supply formula!\nMolar mass can't be calculated.";
   if (!precision) precision = 3;
@@ -134,4 +135,44 @@ module.exports.short = function(formula, precision) {
   } else {
     return `${weight} g/mol`;
   }
+};
+
+// Standard Verbal Mode - Get molar mass and element percentages from query.
+// Formula API by NIH NCI/CADD Group
+module.exports.verbal = async function(query, precision) {
+  if (!query) throw "Missing query!\nPlease supply search query!\nMolar mass can't be calculated.";
+  if (!precision) precision = 3;
+
+  const response = await fetch(`https://cactus.nci.nih.gov/chemical/structure/${query}/formula`);
+  if (!response.ok) throw "Couldn't find anything from the given query!\nTry again with different query!\nMolar mass can't be calculated.";
+  const formula = await response.text();
+
+  var weight = calculateWeight(formula);
+
+  weight = rounded(total[0], precision);
+  var output = `${prettyFormula}:\n`;
+  for (ele in elmass[0]) {
+    eltotal = eval(elmass[0][ele] * atom[ele]);
+    output += `${elmass[0][ele]} ${ele} * ${atom[ele]} = ${rounded(eltotal, precision)} (${rounded(eltotal / total[0] * 100, precision)}% of mass)\n`;
+  }
+  if (isNaN(weight)) {
+    throw "Unknown element detected!\nMolar mass can't be calculated.";
+  } else {
+    output += `Total: ${weight} g/mol`;
+  }
+  return output;
+};
+
+// Short Verbal Mode - Get only molar mass from query.
+// Formula API by NIH NCI/CADD Group
+module.exports.verbalShort = async function(query, precision) {
+  if (!query) throw "Missing query!\nPlease supply search query!\nMolar mass can't be calculated.";
+  if (!precision) precision = 3;
+  const response = await fetch(`https://cactus.nci.nih.gov/chemical/structure/${query}/formula`);
+  if (!response.ok) throw "Couldn't find anything from the given query!\nTry again with different query!\nMolar mass can't be calculated.";
+  const formula = await response.text();
+
+  var weight = calculateWeight(formula);
+  var output = rounded(total[0], precision);
+  return `${output} g/mol`;
 };
