@@ -1,4 +1,4 @@
-atom = new Array();
+let atom = new Array();
 atom["H"] = 1.007825;
 atom["D"] = 2.01410177811;
 atom["T"] = 3.01604928;
@@ -136,4 +136,5 @@ atom["Uup"] = 290;
 atom["Uuh"] = 293;
 atom["Uus"] = 294;
 atom["Uuo"] = 294;
+
 module.exports = atom;

@@ -1,5 +1,8 @@
+// Formula pretifier for output
+
 module.exports = function(formula) {
   formula = formula.replace(/ /g, "");
+  formula = formula.replace(/·/g, " · ");
   formula = formula.replace(/×/g, " · ");
   formula = formula.replace(/\*/g, " · ");
   formula = formula.replace(/-/g, "");
@@ -13,6 +16,18 @@ module.exports = function(formula) {
   formula = formula.replace(/7/g, "₇");
   formula = formula.replace(/8/g, "₈");
   formula = formula.replace(/9/g, "₉");
+
+  // Second round for crystal hydrates
+  formula = formula.replace(/( · ₀H)/g, " · 0H");
+  formula = formula.replace(/( · ₁H)/g, " · 1H");
+  formula = formula.replace(/( · ₂H)/g, " · 2H");
+  formula = formula.replace(/( · ₃H)/g, " · 3H");
+  formula = formula.replace(/( · ₄H)/g, " · 4H");
+  formula = formula.replace(/( · ₅H)/g, " · 5H");
+  formula = formula.replace(/( · ₆H)/g, " · 6H");
+  formula = formula.replace(/( · ₇H)/g, " · 7H");
+  formula = formula.replace(/( · ₈H)/g, " · 8H");
+  formula = formula.replace(/( · ₉H)/g, " · 9H");
 
   return formula;
 };
