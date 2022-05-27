@@ -78,7 +78,7 @@ chemymass.verbalShort(query, precision, units)
 
 * **(^1.0.11)** Verbal mode supported query types: `Plain Text Name`, `CAS number`, `SMILES`, `IUPAC`, `FICTS identifier`, `Cactvs HASHISY`, `uuuuu identifier`.
 
-* **(^1.0.12)** `units` is optional parameter which defaults to `g/mol`. Available options are `g/mol` (Grams per mole); `kg/mol` (Kilograms per mole); `Da` (Daltons); `amu` (Atomic mass unit) or `u` (Same as amu). Parameter must be passed as string.
+* **(^1.0.12)** `units` is optional parameter which defaults to `g/mol`. Available options are `g/mol` (Grams per mole); `kg/mol` (Kilograms per mole); `Da` (Daltons); `amu` (Atomic mass unit); `u` (Same as amu) or `""` (Just number - no units) **(^1.0.13)**.
 
 * `precision` is optional parameter which defaults to 3 if not passed to function.
 
