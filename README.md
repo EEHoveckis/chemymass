@@ -5,21 +5,26 @@
 chemymass - Simple molar mass calculator. Calculates molar mass for any valid formula.
 
 
-## 🔧 Setup
-chemymass is easy to setup, just do:
-```
+## 🔧 Installation
+chemymass is easy to install, just do:
+```sh
 npm i chemymass
 ```
 
 ## 📕 Usage
-To require chemymass in your program do:
-```js
-const chemymass = require("chemymass");
+chemymass from v2 is an ESM-only module - you are not able to import it with `require()`.
+
+If you cannot switch to ESM, please use v1 which remains compatible with CommonJS.
+```sh
+npm i chemymass@1
 ```
-Ways to call chemymass from your program:
+
+Ways to call the module from your program:
 
 ```js
 // Standard Long Mode - Get molar mass and element percentages.
+import chemymass from "chemymass";
+
 const formula = "H₂SO₄";
 const precision = 3;
 const units = "g/mol";
@@ -35,7 +40,9 @@ Total: 98.079 g/mol
 ```
 ```js
 // Standard Short Mode - Get only molar mass.
-const formula = "CuSO₄·5H₂O";
+import { short } from "chemymass";
+
+const formula = "CuSO₄ · 5H₂O";
 const precision = 7;
 const units = "amu";
 console.log(chemymass.short(formula, precision, units));
@@ -46,6 +53,8 @@ console.log(chemymass.short(formula, precision, units));
 ```
 ```js
 // Standard Verbal Mode - Get molar mass and element percentages from query.
+import { verbal } from "chemymass";
+
 const query = "Sugar";
 const precision = 7;
 const units = "Da";
@@ -62,6 +71,8 @@ Total: 342.2975500 Da
 ```
 ```js
 // Short Verbal Mode - Get only molar mass from query.
+import { verbalShort } from "chemymass";
+
 const query = "58-08-2";
 const precision = 7;
 const units = "u";
@@ -74,11 +85,11 @@ chemymass.verbalShort(query, precision, units)
 ```
 
 ## 📰 Notes
-* **(^1.0.10)** Crystal Hydrates work without any modifications. Formulas can be with signs `·`, `×` or `*`.
+* Crystal Hydrates work without any modifications. Formulas can be with signs `·`, `×` or `*`.
 
-* **(^1.0.11)** Verbal mode supported query types: `Plain Text Name`, `CAS number`, `SMILES`, `IUPAC`, `FICTS identifier`, `Cactvs HASHISY`, `uuuuu identifier`.
+* Verbal mode supported query types: `Plain Text Name`, `CAS number`, `SMILES`, `IUPAC`, `FICTS identifier`, `Cactvs HASHISY`, `uuuuu identifier`.
 
-* **(^1.0.12)** `units` is optional parameter which defaults to `g/mol`. Available options are `g/mol` (Grams per mole); `kg/mol` (Kilograms per mole); `Da` (Daltons); `amu` (Atomic mass unit) or `u` (Same as amu). Parameter must be passed as string.
+* `units` is optional parameter which defaults to `g/mol`. Available options are `g/mol` (Grams per mole); `kg/mol` (Kilograms per mole); `Da` (Daltons); `amu` (Atomic mass unit); `u` (Same as amu) or `""` (No units - just number).
 
 * `precision` is optional parameter which defaults to 3 if not passed to function.
 

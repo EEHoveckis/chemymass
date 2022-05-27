@@ -137,4 +137,4 @@ atom["Uuh"] = 293;
 atom["Uus"] = 294;
 atom["Uuo"] = 294;
 
-module.exports = atom;
+export default atom;
