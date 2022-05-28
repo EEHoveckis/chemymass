@@ -1,4 +1,4 @@
-export default formula => {
+export default (formula) => {
 	formula = formula.replace(/ /g, "");
 	formula = formula.replace(/-/g, "");
 	formula = formula.replace(/₀/g, "0");

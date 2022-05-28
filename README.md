@@ -85,6 +85,8 @@ chemymass.verbalShort(query, precision, units)
 ```
 
 ## 📰 Notes
+* This module understands both normal numbers and subscripts. You don't have to specifically convert them.
+
 * Crystal Hydrates work without any modifications. Formulas can be with signs `·`, `×` or `*`.
 
 * Verbal mode supported query types: `Plain Text Name`, `CAS number`, `SMILES`, `IUPAC`, `FICTS identifier`, `Cactvs HASHISY`, `uuuuu identifier`.
@@ -92,8 +94,6 @@ chemymass.verbalShort(query, precision, units)
 * `units` is optional parameter which defaults to `g/mol`. Available options are `g/mol` (Grams per mole); `kg/mol` (Kilograms per mole); `Da` (Daltons); `amu` (Atomic mass unit); `u` (Same as amu) or `""` (No units - just number).
 
 * `precision` is optional parameter which defaults to 3 if not passed to function.
-
-* This module understands both normal numbers and subscripts. You don't have to specifically convert them.
 
 * Verbal mode is made possible by [NIH NCI/CADD Group](https://cactus.nci.nih.gov/)! Without their [API](https://cactus.nci.nih.gov/chemical/structure), verbal mode probably wouldn't be a thing.
 

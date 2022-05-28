@@ -1,6 +1,6 @@
 // Formula pretifier for output
 
-export default formula => {
+export default (formula) => {
 	formula = formula.replace(/ /g, "");
 	formula = formula.replace(/·/g, " · ");
 	formula = formula.replace(/×/g, " · ");

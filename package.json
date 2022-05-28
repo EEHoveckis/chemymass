@@ -1,6 +1,6 @@
 {
 	"name": "chemymass",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"description": "Simple chemical molar mass calculator",
 	"main": "index.js",
 	"type": "module",

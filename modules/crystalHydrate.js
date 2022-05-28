@@ -1,4 +1,4 @@
-export default formula => {
+export default (formula) => {
 	let newFormula;
 	let check1 = /·/.test(formula);
 	let check2 = /\*/.test(formula);
