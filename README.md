@@ -7,7 +7,7 @@ chemymass - Simple molar mass calculator. Calculates molar mass for any valid fo
 
 ## 🔧 Setup
 chemymass is easy to setup, just do:
-```
+```sh
 npm i chemymass
 ```
 
@@ -74,6 +74,8 @@ chemymass.verbalShort(query, precision, units)
 ```
 
 ## 📰 Notes
+* **(^1.0.8)** This module understands both normal numbers and subscripts. You don't have to specifically convert them.
+
 * **(^1.0.10)** Crystal Hydrates work without any modifications. Formulas can be with signs `·`, `×` or `*`.
 
 * **(^1.0.11)** Verbal mode supported query types: `Plain Text Name`, `CAS number`, `SMILES`, `IUPAC`, `FICTS identifier`, `Cactvs HASHISY`, `uuuuu identifier`.
@@ -81,8 +83,6 @@ chemymass.verbalShort(query, precision, units)
 * **(^1.0.12)** `units` is optional parameter which defaults to `g/mol`. Available options are `g/mol` (Grams per mole); `kg/mol` (Kilograms per mole); `Da` (Daltons); `amu` (Atomic mass unit); `u` (Same as amu) or `""` (Just number - no units) **(^1.0.13)**.
 
 * `precision` is optional parameter which defaults to 3 if not passed to function.
-
-* This module understands both normal numbers and subscripts. You don't have to specifically convert them.
 
 * Verbal mode is made possible by [NIH NCI/CADD Group](https://cactus.nci.nih.gov/)! Without their [API](https://cactus.nci.nih.gov/chemical/structure), verbal mode probably wouldn't be a thing.
 

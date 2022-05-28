@@ -1,6 +1,7 @@
 // Require / Import neccesary files and modules.
 const atom = require("./modules/atom.js");
 const calculateWeight = require("./modules/calculateWeight.js");
+const fetch = require("node-fetch");
 const pretify = require("./modules/pretify.js");
 const round = require("./modules/round.js");
 
