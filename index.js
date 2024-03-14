@@ -11,7 +11,7 @@ const usableUnits = ["g/mol", "kg/mol", "Da", "amu", "u", ""];
 // Standard Long Mode - Get molar mass and element percentages.
 module.exports = function(formula, precision, units) {
 	if (!formula) throw "Missing formula!\nPlease supply formula!\nMolar mass can't be calculated.";
-	if (!precision) precision = 3;
+	if (!precision || typeof precision != "number") precision = 3;
 	if (!units) units = "g/mol";
 	if (usableUnits.indexOf(units) === -1) throw "Wrong units format passed! Molar mass can't be calculated.";
 	let weight = calculateWeight(formula);
@@ -34,7 +34,7 @@ module.exports = function(formula, precision, units) {
 // Standard Short Mode - Get only molar mass.
 module.exports.short = function(formula, precision, units) {
 	if (!formula) throw "Missing formula!\nPlease supply formula!\nMolar mass can't be calculated.";
-	if (!precision) precision = 3;
+	if (!precision || typeof precision != "number") precision = 3;
 	if (!units) units = "g/mol";
 	if (usableUnits.indexOf(units) === -1) throw "Wrong units format passed! Molar mass can't be calculated.";
 	var weight = calculateWeight(formula);
@@ -51,7 +51,7 @@ module.exports.short = function(formula, precision, units) {
 // Formula API by NIH NCI/CADD Group
 module.exports.verbal = async function(query, precision, units) {
 	if (!query) throw "Missing query!\nPlease supply search query!\nMolar mass can't be calculated.";
-	if (!precision) precision = 3;
+	if (!precision || typeof precision != "number") precision = 3;
 	if (!units) units = "g/mol";
 	if (usableUnits.indexOf(units) === -1) throw "Wrong units format passed! Molar mass can't be calculated.";
 
@@ -80,7 +80,7 @@ module.exports.verbal = async function(query, precision, units) {
 // Formula API by NIH NCI/CADD Group
 module.exports.verbalShort = async function(query, precision, units) {
 	if (!query) throw "Missing query!\nPlease supply search query!\nMolar mass can't be calculated.";
-	if (!precision) precision = 3;
+	if (!precision || typeof precision != "number") precision = 3;
 	if (!units) units = "g/mol";
 	if (usableUnits.indexOf(units) === -1) throw "Wrong units format passed! Molar mass can't be calculated.";
 
@@ -92,3 +92,51 @@ module.exports.verbalShort = async function(query, precision, units) {
 	var output = round(total[0], precision);
 	return `${output} ${units}`;
 };
+
+module.exports.bulk = function(formulas, precision, units) {
+	if (!formulas) throw "Missing formulas!\nPlease supply formulas!\nMolar mass can't be calculated.";
+	if (!precision || typeof precision != "number") precision = 3;
+	if (!units) units = "g/mol";
+	if (usableUnits.indexOf(units) === -1) throw "Wrong units format passed! Molar mass can't be calculated.";
+	let finalOutput = "";
+
+	formulas.forEach((formula, i) => {
+		let weight = calculateWeight(formula);
+		weight = round(total[0], precision);
+
+		prettyFormula = pretify(formula);
+		var output = `${prettyFormula}:\n`;
+		for (ele in elmass[0]) {
+			eltotal = eval(elmass[0][ele] * atom[ele]);
+			output += `${elmass[0][ele]} ${ele} · ${atom[ele]} = ${round(eltotal, precision)} (${round(eltotal / total[0] * 100, precision)}% of mass)\n`;
+		}
+		if (isNaN(weight)) {
+			throw "Unknown element detected!\nMolar mass can't be calculated.";
+		} else {
+			output += `Total: ${weight} ${units}\n\n`;
+		}
+		finalOutput += output;
+	});
+	return finalOutput;
+}
+
+module.exports.bulkShort = function(formulas, precision, units) {
+	if (!formulas) throw "Missing formulas!\nPlease supply formula!\nMolar mass can't be calculated.";
+	if (!precision || typeof precision != "number") precision = 3;
+	if (!units) units = "g/mol";
+	if (usableUnits.indexOf(units) === -1) throw "Wrong units format passed! Molar mass can't be calculated.";
+	let finalOutput = "";
+
+
+	formulas.forEach((formula, i) => {
+		var weight = calculateWeight(formula);
+
+		weight = round(total[0], precision);
+		if (isNaN(weight)) {
+			throw `Unknown element detected!\nMolar mass can't be calculated.`;
+		} else {
+			finalOutput += `${weight} ${units}\n`;
+		}
+	});
+	return finalOutput;
+}
