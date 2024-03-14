@@ -83,6 +83,48 @@ chemymass.verbalShort(query, precision, units)
 194.1918500 u
 */
 ```
+```js
+// Standard Bulk Mode - Get molar mass and element percentages.
+import { bulk } from "chemymass";
+
+const formula = ["H₂SO₄", "H₂O", "CuSO₄"];
+const precision = 3;
+const units = "g/mol";
+console.log(chemymass.bulk(formula, precision, units));
+
+/* Output:
+H₂SO₄:
+1 S · 32.066 = 32.066 (32.694% of mass)
+4 O · 15.9994 = 63.998 (65.251% of mass)
+Total: 98.079 g/mol
+
+H₂O:
+2 H · 1.007825 = 2.016 (11.189% of mass)
+1 O · 15.9994 = 15.999 (88.811% of mass)
+Total: 18.015 g/mol
+
+CuSO₄:
+1 Cu · 63.546 = 63.546 (39.813% of mass)
+1 S · 32.066 = 32.066 (20.090% of mass)
+4 O · 15.9994 = 63.998 (40.096% of mass)
+Total: 159.610 g/mol
+*/
+```
+```js
+// Standard Short Mode - Get only molar mass.
+import { bulkShort } from "chemymass";
+
+const formula = ["H2SO4", "H2O", "CuSO4"];
+const precision = 7;
+const units = "amu";
+console.log(chemymass.short(formula, precision, units));
+
+/* Output:
+98.0792500 amu
+18.0150500 amu
+159.6096000 amu
+*/
+```
 
 ## 📰 Notes
 * This module understands both normal numbers and subscripts. You don't have to specifically convert them.
@@ -92,6 +134,8 @@ chemymass.verbalShort(query, precision, units)
 * Verbal mode supported query types: `Plain Text Name`, `CAS number`, `SMILES`, `IUPAC`, `FICTS identifier`, `Cactvs HASHISY`, `uuuuu identifier`.
 
 * `units` is optional parameter which defaults to `g/mol`. Available options are `g/mol` (Grams per mole); `kg/mol` (Kilograms per mole); `Da` (Daltons); `amu` (Atomic mass unit); `u` (Same as amu) or `""` (No units - just number).
+
+* **(^2.0.3)** Bulk options is now available. Just pass an array of formulas and all of them will be calculated.
 
 * `precision` is optional parameter which defaults to 3 if not passed to function.
 

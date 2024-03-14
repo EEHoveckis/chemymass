@@ -96,3 +96,51 @@ export async function verbalShort(query, precision, units) {
 	const output = round(weight, precision);
 	return `${output} ${units}`;
 }
+
+export function bulk(formulas, precision, units) {
+	if (!formulas) throw "Missing formulas!\nPlease supply formulas!\nMolar mass can't be calculated.";
+	if (!precision || typeof precision != "number") precision = 3;
+	if (!units) units = "g/mol";
+	if (usableUnits.indexOf(units) === -1) throw "Wrong units format passed! Molar mass can't be calculated.";
+	let finalOutput = "";
+
+	formulas.forEach((formula, i) => {
+		let weight = calculateWeight(formula);
+		weight = round(total[0], precision);
+
+		prettyFormula = pretify(formula);
+		var output = `${prettyFormula}:\n`;
+		for (ele in elmass[0]) {
+			eltotal = eval(elmass[0][ele] * atom[ele]);
+			output += `${elmass[0][ele]} ${ele} · ${atom[ele]} = ${round(eltotal, precision)} (${round(eltotal / total[0] * 100, precision)}% of mass)\n`;
+		}
+		if (isNaN(weight)) {
+			throw "Unknown element detected!\nMolar mass can't be calculated.";
+		} else {
+			output += `Total: ${weight} ${units}\n\n`;
+		}
+		finalOutput += output;
+	});
+	return finalOutput;
+}
+
+export function bulkShort(formulas, precision, units) {
+	if (!formulas) throw "Missing formulas!\nPlease supply formula!\nMolar mass can't be calculated.";
+	if (!precision || typeof precision != "number") precision = 3;
+	if (!units) units = "g/mol";
+	if (usableUnits.indexOf(units) === -1) throw "Wrong units format passed! Molar mass can't be calculated.";
+	let finalOutput = "";
+
+
+	formulas.forEach((formula, i) => {
+		var weight = calculateWeight(formula);
+
+		weight = round(total[0], precision);
+		if (isNaN(weight)) {
+			throw `Unknown element detected!\nMolar mass can't be calculated.`;
+		} else {
+			finalOutput += `${weight} ${units}\n`;
+		}
+	});
+	return finalOutput;
+}
