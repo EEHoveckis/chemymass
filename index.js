@@ -10,10 +10,9 @@ const usableUnits = ["g/mol", "kg/mol", "Da", "amu", "u", ""];
 
 // Standard Long Mode - Get molar mass and element percentages.
 module.exports = function(formula, precision, units) {
-	if (!formula) throw "Missing formula!\nPlease supply formula!\nMolar mass can't be calculated.";
+	if (!formula) throw "Missing formula!";
 	if (!precision || typeof precision != "number") precision = 3;
-	if (!units) units = "g/mol";
-	if (usableUnits.indexOf(units) === -1) throw "Wrong units format passed! Molar mass can't be calculated.";
+	if (!units || usableUnits.indexOf(units) === -1) units = "g/mol";
 	let weight = calculateWeight(formula);
 	weight = round(total[0], precision);
 
@@ -33,10 +32,9 @@ module.exports = function(formula, precision, units) {
 
 // Standard Short Mode - Get only molar mass.
 module.exports.short = function(formula, precision, units) {
-	if (!formula) throw "Missing formula!\nPlease supply formula!\nMolar mass can't be calculated.";
+	if (!formula) throw "Missing formula!";
 	if (!precision || typeof precision != "number") precision = 3;
-	if (!units) units = "g/mol";
-	if (usableUnits.indexOf(units) === -1) throw "Wrong units format passed! Molar mass can't be calculated.";
+	if (!units || usableUnits.indexOf(units) === -1) units = "g/mol";
 	var weight = calculateWeight(formula);
 
 	weight = round(total[0], precision);
@@ -50,10 +48,9 @@ module.exports.short = function(formula, precision, units) {
 // Standard Verbal Mode - Get molar mass and element percentages from query.
 // Formula API by NIH NCI/CADD Group
 module.exports.verbal = async function(query, precision, units) {
-	if (!query) throw "Missing query!\nPlease supply search query!\nMolar mass can't be calculated.";
+	if (!query) throw "Missing query!";
 	if (!precision || typeof precision != "number") precision = 3;
-	if (!units) units = "g/mol";
-	if (usableUnits.indexOf(units) === -1) throw "Wrong units format passed! Molar mass can't be calculated.";
+	if (!units || usableUnits.indexOf(units) === -1) units = "g/mol";
 
 	const response = await fetch(`https://cactus.nci.nih.gov/chemical/structure/${query}/formula`);
 	if (!response.ok) throw "Couldn't find anything from the given query!\nTry again with different query!\nMolar mass can't be calculated.";
@@ -79,10 +76,9 @@ module.exports.verbal = async function(query, precision, units) {
 // Short Verbal Mode - Get only molar mass from query.
 // Formula API by NIH NCI/CADD Group
 module.exports.verbalShort = async function(query, precision, units) {
-	if (!query) throw "Missing query!\nPlease supply search query!\nMolar mass can't be calculated.";
+	if (!query) throw "Missing query!";
 	if (!precision || typeof precision != "number") precision = 3;
-	if (!units) units = "g/mol";
-	if (usableUnits.indexOf(units) === -1) throw "Wrong units format passed! Molar mass can't be calculated.";
+	if (!units || usableUnits.indexOf(units) === -1) units = "g/mol";
 
 	const response = await fetch(`https://cactus.nci.nih.gov/chemical/structure/${query}/formula`);
 	if (!response.ok) throw "Couldn't find anything from the given query!\nTry again with different query!\nMolar mass can't be calculated.";
@@ -94,10 +90,10 @@ module.exports.verbalShort = async function(query, precision, units) {
 };
 
 module.exports.bulk = function(formulas, precision, units) {
-	if (!formulas) throw "Missing formulas!\nPlease supply formulas!\nMolar mass can't be calculated.";
+	if (!formulas) throw "Missing formulas array!";
+	if (typeof formulas != "object") throw "Missing formulas array!";
 	if (!precision || typeof precision != "number") precision = 3;
-	if (!units) units = "g/mol";
-	if (usableUnits.indexOf(units) === -1) throw "Wrong units format passed! Molar mass can't be calculated.";
+	if (!units || usableUnits.indexOf(units) === -1) units = "g/mol";
 	let finalOutput = "";
 
 	formulas.forEach((formula, i) => {
@@ -121,10 +117,10 @@ module.exports.bulk = function(formulas, precision, units) {
 }
 
 module.exports.bulkShort = function(formulas, precision, units) {
-	if (!formulas) throw "Missing formulas!\nPlease supply formula!\nMolar mass can't be calculated.";
+	if (!formulas) throw "Missing formulas array!";
+	if (typeof formulas != "object") throw "Missing formulas array!";
 	if (!precision || typeof precision != "number") precision = 3;
-	if (!units) units = "g/mol";
-	if (usableUnits.indexOf(units) === -1) throw "Wrong units format passed! Molar mass can't be calculated.";
+	if (!units || usableUnits.indexOf(units) === -1) units = "g/mol";
 	let finalOutput = "";
 
 
@@ -133,7 +129,7 @@ module.exports.bulkShort = function(formulas, precision, units) {
 
 		weight = round(total[0], precision);
 		if (isNaN(weight)) {
-			throw `Unknown element detected!\nMolar mass can't be calculated.`;
+			throw "Unknown element detected!\nMolar mass can't be calculated.";
 		} else {
 			finalOutput += `${weight} ${units}\n`;
 		}
