@@ -1,6 +1,6 @@
 {
 	"name": "chemymass",
-	"version": "1.0.16",
+	"version": "1.0.17",
 	"description": "Simple chemical molar mass calculator",
 	"main": "index.js",
 	"scripts": {
@@ -24,7 +24,7 @@
 		"atomic mass",
 		"mass"
 	],
-	"author": "EEHoveckis",
+	"author": "EEHoveckis (Edgars Eduards Hoveckis)",
 	"license": "CC-BY-4.0",
 	"bugs": {
 		"url": "https://github.com/EEHoveckis/chemymass/issues"
